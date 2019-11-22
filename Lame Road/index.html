@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>LAME ROAD</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
+  <!-- MDB icon -->
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" href="css/mdb.min.css">
+  <!-- Your custom styles (optional) -->
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .filter {
+      border: 10px solid #eeeeee;
+    }
+  </style>
+  <script>
+    var scrollAmt = 200;
+    var count = 0;
+
+    xhr = new XMLHttpRequest();
+    function monitor() {
+      // this.xhr.onreadystatechange = this.update;
+      // this.xhr.open("GET", "backend.php", true);
+      // this.xhr.send();
+      scroll = document.body.scrollTop || document.documentElement.scrollTop;
+      if (scroll > scrollAmt) {
+        scrollAmt = scroll;
+        count++; console.log(count);
+        this.xhr.onreadystatechange = this.update;
+        this.xhr.open("GET", "backend.php", true);
+        this.xhr.send();
+      }
+    }
+
+    function update() {
+      if (this.readyState == 4 && this.status == 200) {
+        console.log(this);
+        var cunt = this.responseText.split("#");
+        document.getElementById("cardrow").innerHTML += cunt[count];
+        //this.abort();
+        //obj.monitor();
+      }
+    }
+
+
+    window.onscroll = monitor;
+    function dummyload() {
+      setTimeout(filterload, 1000);
+    }
+    function filterload() {
+      document.getElementById("filter").style.display = "block";
+      setTimeout(cardfilter, 1000);
+    }
+    function cardfilter() {
+      document.getElementById("card").style.display = "block";
+    }
+  </script>
+</head>
+
+<body id="body" style="background-color: #eeeeee;" onload="dummyload();">
+  <!--Navbar -->
+  <nav class="mb-1 navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"><i>LameRoad</i></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+      aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">
+            <i class="fab fa-facebook-f"></i> Facebook
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fab fa-instagram"></i> Instagram</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <i class="fas fa-user"></i> Profile </a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+            <a class="dropdown-item" href="#">My account</a>
+            <a class="dropdown-item" href="#">Log out</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!--/.Navbar -->
+  <!--Body-->
+  <div id="filter" class="container w-75 mt-3" style="display: none;">
+    <button class="btn btn-dark rounded-pill" onclick="filterSelection('Volkswagen')"> Volkswagen</button>
+    <button class="btn btn-dark rounded-pill" onclick="filterSelection('Toyota')"> Toyota</button>
+    <button class="btn btn-dark rounded-pill" onclick="filterSelection('Daimler')"> Daimler</button>
+    <button class="btn btn-dark rounded-pill" onclick="filterSelection('Ford')"> Ford Motor</button>
+    <button class="btn btn-dark rounded-pill" onclick="filterSelection('General')"> General Motors</button>
+    <button class="btn btn-dark rounded-pill" onclick="filterSelection('Honda')"> Honda Motors</button>
+    <button class="btn btn-dark rounded-pill" onclick="filterSelection('SAIC')"> SAIC</button>
+    <button class="btn btn-dark rounded-pill" onclick="filterSelection('Fiat')"> Fiat Chrysler</button>
+    <button class="btn btn-dark rounded-pill" onclick="filterSelection('BMW')"> BMW</button>
+    <button class="btn btn-dark rounded-pill" onclick="filterSelection('Nissan')"> Nissan Motor</button>
+    <button class="btn btn-dark rounded-pill" onclick="filterSelection('filter')"> ALL</button>
+  </div>
+  <div id="card" class="text-center container w-75 mt-4" style="display:none;">
+    <div class="row" id="cardrow">
+      <div class="shadow-none card col-4 filter Volkswagen HB" style="display: none;">
+        <div class="card-body">
+          <div class="view overlay">
+            <a href="#!">
+              <img id="cardimg" class="card-img-top" src="img/Cars/Polo.png" alt="Card image cap">
+          </div>
+          <div id="cardbody">
+            <h4 class="card-title text-dark">New Polo</h4>
+            <p class="card-text">Experience the power to play.</p>
+            <h6>
+              <span class="badge badge-dark p-2">Volkswagen</span>
+              <span class="badge badge-dark p-2">Hatchback</span>
+            </h6>
+          </div>
+        </div>
+        </a>
+      </div>
+      <div class="shadow-none card col-4 filter Volkswagen Sedan" style="display:block;">
+        <div class="card-body">
+          <div class="view overlay">
+            <a href="#!">
+              <img class="card-img-top" src="img/Cars/Vento.png" alt="Card image cap">
+          </div>
+          <h4 class="card-title text-dark">New Vento</h4>
+          <p class="card-text">Turn heads in the New Vento.</p>
+          <h6>
+            <span class="badge badge-dark p-2">Volkswagen</span>
+            <span class="badge badge-dark p-2">Sedan</span>
+          </h6>
+        </div>
+        </a>
+      </div>
+      <div class="shadow-none card col-4 filter Volkswagen Sedan" style="display:block;">
+        <div class="card-body">
+          <div class="view overlay">
+            <a href="#!">
+              <img class="card-img-top" src="img/Cars/Passat.png" alt="Card image cap">
+          </div>
+          <h4 class="card-title text-dark">Passat</h4>
+          <p class="card-text">Luxury you can't give up.</p>
+          <h6>
+            <span class="badge badge-dark p-2">Volkswagen</span>
+            <span class="badge badge-dark p-2">Sedan</span>
+          </h6>
+        </div>
+        </a>
+      </div>
+      <div class="shadow-none card col-4 filter Volkswagen SUV" style="display:block;">
+        <div class="card-body">
+          <div class=" view overlay">
+            <a href="#!">
+              <img class="card-img-top" src="img/Cars/Tiguan.png" alt="Card image cap">
+          </div>
+          <h4 class="card-title text-dark">The Tiguan</h4>
+          <p class="card-text">For the Journeys within.</p>
+          <h6>
+            <span class="badge badge-dark p-2">Volkswagen</span>
+            <span class="badge badge-dark p-2">SUV</span>
+          </h6>
+        </div>
+        </a>
+      </div>
+      <div class="shadow-none card col-4 filter Toyota SUV" style="display:block;">
+        <div class="card-body">
+          <div class=" view overlay">
+            <a href="#!">
+              <img class="card-img-top" src="img/Cars/Fortuner.png" alt="Card image cap">
+          </div>
+          <h4 class="card-title text-dark">Fortuner</h4>
+          <p class="card-text">For the Journeys within.</p>
+          <h6>
+            <span class="badge badge-dark p-2">Toyota</span>
+            <span class="badge badge-dark p-2">SUV</span>
+          </h6>
+        </div>
+        </a>
+      </div>
+      <div class="shadow-none card col-4 filter Toyota HB" style="display:block;">
+        <div class="card-body">
+          <div class=" view overlay">
+            <a href="#!">
+              <img class="card-img-top" src="img/Cars/Corolla.png" alt="Card image cap">
+          </div>
+          <h4 class="card-title text-dark">Corolla</h4>
+          <p class="card-text">For the Journeys within.</p>
+          <h6>
+            <span class="badge badge-dark p-2">Toyota</span>
+            <span class="badge badge-dark p-2">Hatchback</span>
+          </h6>
+        </div>
+        </a>
+      </div>
+      <div class="shadow-none card col-4 filter Toyota HB" style="display:block;">
+        <div class="card-body">
+          <div class=" view overlay">
+            <a href="#!">
+              <img class="card-img-top" src="img/Cars/Yaris.png" alt="Card image cap">
+          </div>
+          <h4 class="card-title text-dark">Yaris</h4>
+          <p class="card-text">For the Journeys within.</p>
+          <h6>
+            <span class="badge badge-dark p-2">Toyota</span>
+            <span class="badge badge-dark p-2">Hatchback</span>
+          </h6>
+        </div>
+        </a>
+      </div>
+      <div class="shadow-none card col-4 filter Toyoa SUV" style="display:block;">
+        <div class="card-body">
+          <div class=" view overlay">
+            <a href="#!">
+              <img class="card-img-top" src="img/Cars/Fortuner.png" alt="Card image cap">
+          </div>
+          <h4 class="card-title text-dark">Fortuner</h4>
+          <p class="card-text">For the Journeys within.</p>
+          <h6>
+            <span class="badge badge-dark p-2">Toyota</span>
+            <span class="badge badge-dark p-2">SUV</span>
+          </h6>
+        </div>
+        </a>
+      </div>
+      <div class="shadow-none card col-4 filter Toyota Seden" style="display:block;">
+        <div class="card-body">
+          <div class=" view overlay">
+            <a href="#!">
+              <img class="card-img-top" src="img/Cars/Camry.png" alt="Card image cap">
+          </div>
+          <h4 class="card-title text-dark">Camry</h4>
+          <p class="card-text">For the Journeys within.</p>
+          <h6>
+            <span class="badge badge-dark p-2">Toyota</span>
+            <span class="badge badge-dark p-2">Seden</span>
+          </h6>
+        </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  </div>
+  <!--/.Body-->
+  <!-- jQuery -->
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- Your custom scripts (optional) -->
+  <script type="text/javascript">
+
+
+  </script>
+
+</body>
+
+</html>
