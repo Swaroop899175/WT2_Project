@@ -1,0 +1,10 @@
+VOLKSWAGEN;NEW POLO;
+New Polo;1;5.29 L;
+Own the New Polo at an offer price starting at Rs. 5.29 lakh. *;4 Years Warranty;
+Enjoy new vehicle warranty for 4 years or 100,000 kilometers (whichever is earlier) on your new Volkswagen Polo.;
+url('img/infocars/Polo.jpg');
+VOLKSWAGEN;NEW VENTO;
+New Vento;1;8.76 L;
+Own the New Vento at an offer price starting at Rs. 8.76 lakh. *;4 Years Warranty;
+Enjoy new vehicle warranty for 4 years or 100,000 kilometers (whichever is earlier) on your new Volkswagen Vento.;
+url('img/infocars/Vento.jpg');
